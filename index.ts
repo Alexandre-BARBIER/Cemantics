@@ -20,8 +20,7 @@ const extractGuess = async (req: Request) => {
   console.log(req)
   let js = await req.json();
   console.log(js);
-  const slackPayload = await req.formData();
-  const guess = slackPayload.get("message").get("text")?.toString();
+  const guess = js.message.text;
   if (!guess) {
     throw Error("Guess is empty or null");
   }
