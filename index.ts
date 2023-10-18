@@ -1,7 +1,8 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
 
 async function handler(_req: Request): Promise<Response> {
-  try {
+  console.log("coucou")
+    try {
     const wordToFind = "chien";
     const guess = await extractGuess(_req);
     const similarityResult = await similarity(guess, wordToFind);
