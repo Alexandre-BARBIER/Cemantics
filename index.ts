@@ -1,8 +1,6 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
-import readline from "npm:readline";
-import fs from "npm:fs"
 import seedrandom from "npm:seedrandom";
-
+import {readLines} from "https://deno.land/std/io/bufio.ts";
 
 
 function getRandomInt(min, max) {
@@ -21,19 +19,13 @@ function getRandomInt(min, max) {
 }
 
 async function getTodayWord() {
-  const fileStream = fs.createReadStream('lemmes.txt');
-
-  const rl = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity
-  });
-  // Note: we use the crlfDelay option to recognize all instances of CR LF
-  // ('\r\n') in input.txt as a single line break.
+  const f=await Deno.open('./lemmes.txt');
   const array = [];
-  for await (const line of rl) {
-    // Each line in input.txt will be successively available here as `line`.
-    array.push(line);
-  }
+
+  for await(const l of readLines(f))
+    array.push(l)
+  
+
   console.log(array.length)
   const number = getRandomInt(0,array.length)
   console.log(number)
