@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
-import readline from "npm:readline";
 import seedrandom from "npm:seedrandom";
 
 
@@ -20,12 +19,8 @@ function getRandomInt(min, max) {
 }
 
 async function getTodayWord() {
-  const f=await Deno.open('./lemmes.txt');
-  const array = [];
-
-  for await(const l of readline(f))
-    array.push(l)
-  
+  const text = await Deno.readTextFile("./lemmes.txt");
+  const array = text.split("\n");
 
   console.log(array.length)
   const number = getRandomInt(0,array.length)
