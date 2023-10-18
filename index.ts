@@ -9,6 +9,17 @@ async function handler(_req: Request): Promise<Response> {
     console.log(
       `Tried with word ${guess}, similarity is ${similarityResult}, word to find is ${wordToFind}`
     );
+    let js = await req.json();
+    fetch("https://api.telegram.org/bot6325097084:AAHkznRDkncIz25zFOEPzINDj8zUDZiR97s/sendMessage", {
+      method: "POST",
+      body: JSON.stringify({
+      chat_id: js.message.chat.id,
+      text: responseBuilder(guess, similarityResult)
+    }),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  }
+});
     return new Response(responseBuilder(guess, similarityResult));
   } catch (e) {
     console.error(e);
