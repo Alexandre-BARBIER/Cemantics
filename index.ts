@@ -9,7 +9,7 @@ async function handler(_req: Request): Promise<Response> {
     console.log(
       `Tried with word ${guess}, similarity is ${similarityResult}, word to find is ${wordToFind}`
     );
-    let js = await req.json();
+    let js = await _req.json();
     fetch("https://api.telegram.org/bot6325097084:AAHkznRDkncIz25zFOEPzINDj8zUDZiR97s/sendMessage", {
       method: "POST",
       body: JSON.stringify({
