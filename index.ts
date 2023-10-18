@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
+import readline from "npm:readline";
 import seedrandom from "npm:seedrandom";
-import {readLines} from "https://deno.land/std/io/bufio.ts";
+
 
 
 function getRandomInt(min, max) {
