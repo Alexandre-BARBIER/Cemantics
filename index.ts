@@ -18,7 +18,7 @@ async function handler(_req: Request): Promise<Response> {
 
 const extractGuess = async (req: Request) => {
   console.log(req)
-  console.log(req.body?.getReader("message"))
+  console.log(req.body.get("message"))
   const slackPayload = await req.formData();
   const guess = slackPayload.get("message").get("text")?.toString();
   if (!guess) {
