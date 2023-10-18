@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
-import readline from "npm:readLine";
+import readline from "npm:readline";
 import fs from "npm:fs"
 import seedrandom from "npm:seedrandom";
 
