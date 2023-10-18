@@ -1,11 +1,12 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
-const fs = require('fs');
-const readline = require('readline');
+import readline from "npm:readLine";
+import fs from "npm:fs"
+import seedrandom from "npm:seedrandom";
 
 
 
 function getRandomInt(min, max) {
-    const seedrandom = require('seedrandom');
+    
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
