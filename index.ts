@@ -4,12 +4,12 @@ async function handler(_req: Request): Promise<Response> {
   console.log("coucou")
     try {
     const wordToFind = "chien";
-    const guess = await extractGuess(_req);
+    let js = await _req.json();
+    const guess = await extractGuess(js);
     const similarityResult = await similarity(guess, wordToFind);
     console.log(
       `Tried with word ${guess}, similarity is ${similarityResult}, word to find is ${wordToFind}`
     );
-    let js = await _req.json();
     fetch("https://api.telegram.org/bot6325097084:AAHkznRDkncIz25zFOEPzINDj8zUDZiR97s/sendMessage", {
       method: "POST",
       body: JSON.stringify({
@@ -27,9 +27,7 @@ async function handler(_req: Request): Promise<Response> {
   }
 }
 
-const extractGuess = async (req: Request) => {
-  console.log(req)
-  let js = await req.json();
+const extractGuess = async (js) => {
   console.log(js);
   const guess = js.message.text;
   if (!guess) {
