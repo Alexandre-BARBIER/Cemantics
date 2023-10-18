@@ -23,7 +23,7 @@ async function getTodayWord() {
   const f=await Deno.open('./lemmes.txt');
   const array = [];
 
-  for await(const l of readLines(f))
+  for await(const l of readline(f))
     array.push(l)
   
 
