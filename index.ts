@@ -33,7 +33,7 @@ async function getTodayWord() {
 async function handler(_req: Request): Promise<Response> {
   console.log("coucou")
     try {
-    const wordToFind = getTodayWord();
+    const wordToFind = await getTodayWord();
     let js = await _req.json();
     const guess = await extractGuess(js);
     const similarityResult = await similarity(guess, wordToFind);
