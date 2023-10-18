@@ -1,9 +1,50 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
+const fs = require('fs');
+const readline = require('readline');
+
+
+
+function getRandomInt(min, max) {
+    const seedrandom = require('seedrandom');
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '-' + dd + '-' + yyyy;
+    console.log(today)
+    const generator = seedrandom('today');
+
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(generator() * (max - min + 1)) + min;
+}
+
+async function getTodayWord() {
+  const fileStream = fs.createReadStream('lemmes.txt');
+
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity
+  });
+  // Note: we use the crlfDelay option to recognize all instances of CR LF
+  // ('\r\n') in input.txt as a single line break.
+  const array = [];
+  for await (const line of rl) {
+    // Each line in input.txt will be successively available here as `line`.
+    array.push(line);
+  }
+  console.log(array.length)
+  const number = getRandomInt(0,array.length)
+  console.log(number)
+  console.log(array[number])
+  return array[number]
+}
+
 
 async function handler(_req: Request): Promise<Response> {
   console.log("coucou")
     try {
-    const wordToFind = "chien";
+    const wordToFind = getTodayWord();
     let js = await _req.json();
     const guess = await extractGuess(js);
     const similarityResult = await similarity(guess, wordToFind);
